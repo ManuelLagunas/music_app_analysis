@@ -5,11 +5,18 @@ import os, sys
 sys.path.append(os.getcwd()) # Esto es para agregar al path la ruta de ejecución actual y poder importar respecto a la ruta del proyecto, desde donde se debe ejecutar el código
 
 # Loading data ---------------------------------------- 
+df_raw = pd.read_csv("files/datasets/input/music_project_en.csv")
 
-users_behavior = pd.read_csv("files/datasets/intermediate/a01_users_behavior_cleaned.csv")
+# Data exploration ---------------------------------------- 
 
-# Creación del escalador ---------------------------------------- 
+df_raw.sample(10)
+df_raw.shape
+df_raw.info()
+df_raw.describe()
+# Null values
+df_raw.isnull().sum()
+(df_raw.isnull().sum() / len(df_raw)) * 100
+# duplicate values
+df_raw.duplicated().sum()
 
-# Guardar escalador ---------------------------------------- 
 
-users_behavior.to_csv("files/datasets/intermediate/a02_users_behavior_cleaned.csv", index=False)
