@@ -8,20 +8,36 @@ editor: visual
 jupyter: python3
 ---
 
-## Exploration data alalysis
+# Introducción
+En este proyecto, compara las preferencias musicales de las ciudades de Springfield y Shelbyville. Estudiando datos reales de transmisión de música online para probar las hipótesis a continuación plateadas y comparar el comportamiento de los usuarios y las usuarias de estas dos ciudades.
 
-### Libraries
+## Objetivo
+Prueba tres hipótesis:
+- La actividad de los usuarios y las usuarias difiere según el día de la semana y dependiendo de la cuidad.
+- Los lunes por la mañana, los habitantes de Springfield y Shelbyville escuchan géneros distintos. Lo mismo ocurre con los viernes por la noche.
+- Los oyentes de Springfield y Shelbyville tienen preferencias distintas. En Springfield prefieren el pop, mientras que en Shelbyville hay más personas a las que les gusta el rap.
+
+## Etapas
+El proyecto consistirá en tres etapas:
+- Descripción de los datos
+- Preprocesamiento de datos
+- Prueba de hipótesis
+
+
+# Exploration data alalysis
+
+## Libraries
 ```{python}
 import pandas as pd
 ```
 
 
-### Loading data
+## Loading data
 ```{python}
 df_raw = pd.read_csv("files/datasets/input/music_project_en.csv")
 ```
 
-### Data exploration
+## Data exploration
 ```{python}
 # Basic exploration
 print(df_raw.sample(10))
@@ -45,7 +61,7 @@ print((df_raw.isnull().sum() / len(df_raw)) * 100)
 df_raw.duplicated().sum()
 ```
 
-## Data preprocessing
+# Data preprocessing
 
 ```{python}
 # Columns name

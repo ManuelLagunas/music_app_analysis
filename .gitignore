@@ -1,11 +1,11 @@
 # Extensiones generales
-
+*.js
 *.RData
 *.RDS
 *.xlsx
 *.xls
-
-
+*.css
+*.woff
 *.jpg
 *.pdf
 *.html
