@@ -1,0 +1,194 @@
+---
+title: "User music app behaivor"
+author: "Manuel Lagunas"
+format: 
+    html:
+        toc: true
+editor: visual
+jupyter: python3
+---
+
+## Exploration data alalysis
+
+### Libraries
+```{python}
+import pandas as pd
+```
+
+
+### Loading data
+```{python}
+df_raw = pd.read_csv("files/datasets/input/music_project_en.csv")
+```
+
+### Data exploration
+```{python}
+# Basic exploration
+print(df_raw.sample(10))
+print()
+print(df_raw.shape)
+print()
+print(df_raw.info())
+print()
+print(df_raw.describe())
+```
+
+```{python}
+# Null values
+print(df_raw.isnull().sum())
+print()
+print((df_raw.isnull().sum() / len(df_raw)) * 100)
+```
+
+```{python}
+# duplicate values
+df_raw.duplicated().sum()
+```
+
+## Data preprocessing
+
+```{python}
+# Columns name
+print(df_raw.columns)
+
+def convert_to_snake_case(df):
+    df.columns = df.columns.str.strip().str.replace(' ', '_').str.replace('(', '').str.replace(')', '').str.replace('-', '_').str.lower()
+    return df
+
+df = convert_to_snake_case(df_raw)
+
+print(df.columns)
+```
+
+```{python}
+# Fixing null values
+df[['track', 'artist', 'genre']] = df[['track', 'artist', 'genre']].fillna('unknown') 
+
+print(df.isna().sum())
+```
+
+```{python}
+# Duplicated data
+df=df.drop_duplicates().reset_index(drop=True)
+print(df.duplicated().sum())
+```
+
+```{python}
+# Non explicit duplicated data
+print(sorted(df['genre'].unique()))
+```
+
+```{python}
+df['genre'] = df['genre'].replace(['hip', 'hop', 'hip-hop'], 'hiphop')
+print(sorted(df['genre'].unique()))
+```
+
+## hypothesis testing
+### first hypotesis
+
+```{python}
+#  plays by city
+group_by_city_tracknumbers=df.groupby(by='city')['track'].count()
+print(group_by_city_tracknumbers)
+```
+
+```{python}
+# plays by day of the week
+group_by_day_tracknumbers=df.groupby(by='day')['track'].count()
+print(group_by_day_tracknumbers)
+```
+
+```{python}
+# study function
+def number_tracks(day,city):
+    track_list=df[(df['day']==day) & (df['city']==city)]
+    track_list_count = track_list['userid'].count()
+    return track_list_count
+```
+
+```{python}
+# calculation
+springfield_monday = number_tracks('Monday','Springfield')
+print(springfield_monday)
+
+shelbyville_monday = number_tracks('Monday','Shelbyville')
+print(shelbyville_monday)
+
+springfield_wednesday = number_tracks('Wednesday','Springfield')
+print(springfield_wednesday)
+
+shelbyville_wednesday = number_tracks('Wednesday','Shelbyville')
+print(shelbyville_wednesday)
+
+springfield_friday = number_tracks('Friday','Springfield')
+print(springfield_friday)
+
+shelbyville_friday = number_tracks('Friday','Shelbyville')
+print(shelbyville_friday)
+```
+
+```{python]
+# Results table
+headers=['ciy','monday','wednesday','friday']
+results_day_city=[
+                 ['Springfield',springfield_monday,springfield_wednesday,springfield_friday],
+                 ['Shelbyville',shelbyville_monday,shelbyville_wednesday,shelbyville_friday]
+]
+df_day_city=pd.DataFrame(data=results_day_city, columns=headers)
+print(df_day_city)
+```
+
+### Second hypotesis
+
+```{python}
+#cities separation
+spr_general=df[df['city']=='Springfield']
+print(spr_general)
+print()
+
+shel_general=df[df['city']=='Shelbyville']
+print(shel_general)
+```
+
+```{python}
+#study function
+def genre_weekday(df,day,time1,time2):
+    genre_df = df[(df['day']==day) & (df['time']<time2) & (df['time']>time1)]
+    genre_df_count = genre_df.groupby('genre')['genre'].count()
+    genre_df_sorted = genre_df_count.sort_values(ascending=False)
+    return genre_df_sorted[:15]
+```
+
+```{python}
+# calculations
+spr_mond_mor=genre_weekday(spr_general,'Monday','07:00:00','11:00:00')
+print(spr_mond_mor)
+print()
+
+shel_mond_mor=genre_weekday(shel_general,'Monday','07:00:00','11:00:00')
+print(shel_mond_mor)
+print()
+
+spr_frid_eve=genre_weekday(spr_general,'Friday','17:00:00','23:00:00')
+print(spr_frid_eve)
+print()
+
+shel_frid_eve=genre_weekday(shel_general,'Friday','17:00:00','23:00:00')
+print(shel_frid_eve)
+```
+
+### Third hypothesis
+
+```{python}
+#study table
+spr_genres=spr_general.groupby('genre')['genre'].count()
+spr_genres=spr_genres.sort_values(ascending=False)
+print(spr_genres.head(10))
+```
+
+```{python}
+#study table
+shel_genres=shel_general.groupby('genre')['genre'].count()
+shel_genres=shel_genres.sort_values(ascending=False)
+print(shel_genres.head(10))
+```
