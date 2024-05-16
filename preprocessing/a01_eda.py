@@ -9,14 +9,24 @@ df_raw = pd.read_csv("files/datasets/input/music_project_en.csv")
 
 # Data exploration ---------------------------------------- 
 
-df_raw.sample(10)
-df_raw.shape
-df_raw.info()
-df_raw.describe()
+# Basic exploration
+print(df_raw.sample(10))
+print()
+print(df_raw.shape)
+print()
+print(df_raw.info())
+print()
+print(df_raw.describe())
+
 # Null values
-df_raw.isnull().sum()
-(df_raw.isnull().sum() / len(df_raw)) * 100
+print(df_raw.isnull().sum())
+print()
+print((df_raw.isnull().sum() / len(df_raw)) * 100)
+print()
+
 # duplicate values
 df_raw.duplicated().sum()
+print()
 
-
+# Non explicit duplicated data
+print(sorted(df['genre'].unique()))
