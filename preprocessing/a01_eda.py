@@ -1,4 +1,4 @@
-# Librerias ---------------------------------------- 
+# Libreries ---------------------------------------- 
 
 import pandas as pd
 import os, sys
