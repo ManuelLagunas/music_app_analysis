@@ -53,3 +53,5 @@ merged_df = merged_df.merge(shel_frid_eve_df, on='genre', how='outer')
 
 # Save data ----------------------------------------
 merged_df.to_csv("files/datasets/output/h02_hypotesis.csv", index=False)
+spr_general.to_csv("files/datasets/intermediate/h02_springfield.csv", index=False)
+shel_general.to_csv("files/datasets/intermediate/h02_shelbyville.csv", index=False)
