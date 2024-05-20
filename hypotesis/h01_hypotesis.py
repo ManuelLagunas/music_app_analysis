@@ -25,22 +25,22 @@ def number_tracks(day,city):
 
 # Calculation ------------------------------------
 springfield_monday = number_tracks('Monday','Springfield')
-print(springfield_monday)
+# print(springfield_monday)
 
 shelbyville_monday = number_tracks('Monday','Shelbyville')
-print(shelbyville_monday)
+# print(shelbyville_monday)
 
 springfield_wednesday = number_tracks('Wednesday','Springfield')
-print(springfield_wednesday)
+# print(springfield_wednesday)
 
 shelbyville_wednesday = number_tracks('Wednesday','Shelbyville')
-print(shelbyville_wednesday)
+# print(shelbyville_wednesday)
 
 springfield_friday = number_tracks('Friday','Springfield')
-print(springfield_friday)
+# print(springfield_friday)
 
 shelbyville_friday = number_tracks('Friday','Shelbyville')
-print(shelbyville_friday)
+# print(shelbyville_friday)
 
 # Summary table ------------------------------------
 headers=['ciy','monday','wednesday','friday']

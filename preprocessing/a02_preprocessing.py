@@ -16,19 +16,19 @@ def convert_to_snake_case(df):
     return df
 
 df = convert_to_snake_case(df_raw)
-print(df.columns)
+# print(df.columns)
 
 # -------------- Fixing null values -------------------------
 df[['track', 'artist', 'genre']] = df[['track', 'artist', 'genre']].fillna('unknown') 
-print(df.isna().sum())
+# print(df.isna().sum())
 
 # -------------- Duplicated data -------------------------
 df=df.drop_duplicates().reset_index(drop=True)
-print(df.duplicated().sum())
+# print(df.duplicated().sum())
 
 # -------------- Non explicit duplicated data -------------------------
 df['genre'] = df['genre'].replace(['hip', 'hop', 'hip-hop'], 'hiphop')
-print(sorted(df['genre'].unique()))
+# print(sorted(df['genre'].unique()))
 
 # Save data ----------------------------------------
 df.to_csv("files/datasets/intermediate/a02_preprossesing.csv", index=False)

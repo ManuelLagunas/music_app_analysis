@@ -12,12 +12,12 @@ sh = pd.read_csv("files/datasets/intermediate/h02_shelbyville.csv")
 # sringfield
 sp_genres = sp.groupby('genre')['genre'].count()
 sp_genres = sp_genres.sort_values(ascending=False)
-print(sp_genres.head(10))
+# print(sp_genres.head(10))
 
 #study table
 sh_genres = sh.groupby('genre')['genre'].count()
 sh_genres = sh_genres.sort_values(ascending=False)
-print(sh_genres.head(10))
+# print(sh_genres.head(10))
 
 # summary data ---------------------------------------
 sp_genres_df = sp_genres.to_frame().rename(columns={'genre': 'springfield'}).reset_index()
